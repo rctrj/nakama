@@ -1,3 +1,16 @@
+This is a fork of nakama to run nakama as a service instead of requiring to run inside docker
+
+How does this work:
+1. Select a version. Branch should be created from a tag and not master. \
+   Forking from master might not apply some migrations needed to run the code. \
+   This also helps avoid building the entire nakama project. The plugin builder for nakama is reused from official repo
+2. Add support for setting a custom init module. By default, it searches in `main` package
+3. Rename the `main` pkg of nakama to `nakama` or something relevant
+4. Rename the `main` method to `Run`(or something of your choice) and export it so that it can be called from somewhere
+5. That's it. Now Nakama can now be used by calling `nakama.Run()` from your own `main` implementation
+6. Would recommend using this as a submodule and redirecting imports of `heroiclabs/nakama` -> your submodule directory using `go.mod`
+
+---
 ![Nakama](.github/logo.png?raw=true "Nakama logo")
 ======
 
